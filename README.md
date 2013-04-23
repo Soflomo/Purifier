@@ -72,14 +72,14 @@ If your form has the filter plugin manager injected, this should work out-of-the
 
 When you are not able to filter the html when it is inserted into the database, you might want to filter the html in your view. Please be aware HTMLPurifier is not a very fast library and as such, filtering on every request can be a significant performance bottleneck. Be advised to use a caching mechanism to cache the output of the filtered html. The view helper is available under the key `htmlPurifier`:
 
-```html
-<div><?php echo $this->htmlPurifier()->purify($foo->getText())?></div>
+```php
+<?php echo $this->htmlPurifier()->purify($foo->getText())?>
 ```
 
 And there is a shorthand available too:
 
-```html
-<div><?php echo $this->htmlPurifier($foo->getText())?></div>
+```php
+<?php echo $this->htmlPurifier($foo->getText())?>
 ```
 
 Inject Filter Manager
