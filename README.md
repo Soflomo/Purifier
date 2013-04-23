@@ -112,3 +112,41 @@ $form = new MyForm;
 FormUtils::injectFilterPluginManager($form, $sl);
 ```
 
+Speed up performance
+---
+HTMLPurifier is not the fastest library, but it is the most secure one to filter html in php. By default, HTMLPurifier uses a large number of classes and inclusion of all the files slows down performance during autoloading. You can [create a standalone version](http://htmlpurifier.org/live/INSTALL) of the HTMLPurifier class, where a single file contains most of the classes.
+
+The script in `vendor/bin/purifier-generate-standalone` generates this file for you. The standalone file is created inside `vendor/ezyang/htmlpurifier/library` (there is nothing to configure about that) so make sure you can write in that directory. The Soflomo\Purifier library helps you to use this standalone version by the configuration option `soflomo_prototype.standalone`. In your `config/autoload/local.php`:
+
+```php
+return array(
+    'soflomo_prototype' => array(
+        'standalone'      => true,
+    ),
+);
+```
+
+If your composer does not load the libraries into vendor/, you can update the path to the standalone version too:
+
+```php
+return array(
+    'soflomo_purifier' => array(
+        'standalone'      => true,
+        'standalone_path' => 'something-else/ezyang/htmlpurifier/library/HTMLPurifier.standalone.php',
+    ),
+);
+```
+
+Configure HTMLPurifier
+---
+The HTMLPurifier has a class `HTMLPurifier_Config` where it is possible to configure the purifier rules. Most configuration rules are based on a kay/value pair: `$config->set('HTML.Doctype', 'HTML 4.01 Transitional');`. This mapping is copied to Zend Framework 2 configuration files, so you can easily modify HTMLPurifiers configation:
+
+```php
+return array(
+    'soflomo_purifier' => array(
+        'config' => array(
+            'HTML.Doctype' => 'HTML 4.01 Transitional'
+        ),
+    ),
+);
+```
