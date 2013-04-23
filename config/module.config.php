@@ -47,10 +47,4 @@ return array(
         'config'          => array(
         )
     ),
-
-    'service_manager' => array(
-        'factories' => array(
-            'HTMLPurifier' => 'Soflomo\Purifier\Factory\HtmlPurifierFactory',
-        ),
-    ),
 );
