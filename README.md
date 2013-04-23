@@ -68,7 +68,7 @@ class Foo extends Form implements
 }
 ```
 
-If your form has the filter plugin manager injected, this should work out-of-the-box. If now, please read [how to inject the filter plugin manager](#inject-filter-manager).
+If your form has the filter plugin manager injected, this should work out-of-the-box. If not, please read [how to inject the filter plugin manager](#inject-filter-manager).
 
 When you are not able to filter the html when it is inserted into the database, you might want to filter the html in your view. Please be aware HTMLPurifier is not a very fast library and as such, filtering on every request can be a significant performance bottleneck. Be advised to use a caching mechanism to cache the output of the filtered html. The view helper is available under the key `htmlPurifier`:
 
