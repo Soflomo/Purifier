@@ -1,0 +1,38 @@
+{
+    "name": "soflomo/purifier",
+    "description": "HTML Purifier as filter and validator for Zend Framework 2 ",
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "keywords": [
+        "zf2",
+        "html",
+        "purify",
+        "purifier",
+        "filter",
+        "validator"
+    ],
+    "homepage": "https://github.com/Soflomo/Purifier",
+    "authors": [
+        {
+            "name": "Jurian Sluiman",
+            "email": "jurian@soflomo.com",
+            "homepage": "http://soflomo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3.",
+        "zendframework/zendframework": "2.*",
+        "ezyang/htmlpurifier": ">=4.5.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Soflomo\\Purifier": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    },
+    "bin": [
+        "bin/purifier-generate-standalone"
+    ]
+}
