@@ -120,7 +120,7 @@ The script in `vendor/bin/purifier-generate-standalone` generates this file for 
 
 ```php
 return array(
-    'soflomo_prototype' => array(
+    'soflomo_purifier' => array(
         'standalone' => true,
     ),
 );
