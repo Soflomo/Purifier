@@ -4,4 +4,4 @@
 /**
  * Proxy to the maintenance/generate-standalone.php in HTMLPurifier's composer directory
  */
-include(__DIR__ . '/../../ezyang/htmlpurifier/maintenance/generate-standalone.php');
+include(__DIR__ . '/../../../ezyang/htmlpurifier/maintenance/generate-standalone.php');
