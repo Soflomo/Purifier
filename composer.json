@@ -1,6 +1,6 @@
 {
     "name": "soflomo/purifier",
-    "description": "HTML Purifier as filter and validator for Zend Framework 2 ",
+    "description": "HTML Purifier as filter and view helper for Zend Framework 2 ",
     "license": "BSD-3-Clause",
     "type": "library",
     "keywords": [
@@ -8,8 +8,7 @@
         "html",
         "purify",
         "purifier",
-        "filter",
-        "validator"
+        "filter"
     ],
     "homepage": "https://github.com/Soflomo/Purifier",
     "authors": [
