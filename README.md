@@ -121,7 +121,7 @@ The script in `vendor/bin/purifier-generate-standalone` generates this file for 
 ```php
 return array(
     'soflomo_prototype' => array(
-        'standalone'      => true,
+        'standalone' => true,
     ),
 );
 ```
@@ -139,7 +139,7 @@ return array(
 
 Configure HTMLPurifier
 ---
-The HTMLPurifier has a class `HTMLPurifier_Config` where it is possible to configure the purifier rules. Most configuration rules are based on a kay/value pair: `$config->set('HTML.Doctype', 'HTML 4.01 Transitional');`. This mapping is copied to Zend Framework 2 configuration files, so you can easily modify HTMLPurifiers configation:
+The HTMLPurifier has a class `HTMLPurifier_Config` where it is possible to configure the purifier rules. Most configuration rules are based on a key/value pair: `$config->set('HTML.Doctype', 'HTML 4.01 Transitional');`. This mapping is copied to Zend Framework 2 configuration files, so you can easily modify HTMLPurifiers configation:
 
 ```php
 return array(
