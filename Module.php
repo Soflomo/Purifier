@@ -79,8 +79,8 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'htmlpurifier' => function($sm) {
-                    $purifier = $sm->getServiceLocator()->get('HTMLPurifier');
+                'htmlpurifier' => function($sl) {
+                    $purifier = $sl->getServiceLocator()->get('HTMLPurifier');
                     return new Filter\Purifier($purifier);
                 },
             ),
@@ -91,8 +91,8 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'htmlPurifier' => function($sm) {
-                    $purifier = $sm->getServiceLocator()->get('HTMLPurifier');
+                'htmlPurifier' => function($sl) {
+                    $purifier = $sl->getServiceLocator()->get('HTMLPurifier');
                     return new View\Helper\Purifier($purifier);
                 },
             ),
