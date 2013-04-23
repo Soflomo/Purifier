@@ -91,9 +91,9 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'htmlpurifier' => function($sm) {
+                'htmlPurifier' => function($sm) {
                     $purifier = $sm->getServiceLocator()->get('HTMLPurifier');
-                    return new View\Helper\Purifier();
+                    return new View\Helper\Purifier($purifier);
                 },
             ),
         );
