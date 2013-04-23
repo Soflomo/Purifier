@@ -40,30 +40,34 @@
 
 namespace Soflomo\Purifier\View\Helper;
 
-use Soflomo\Purifier\Filter\Purifier as PurifierFilter;
+use HTMLPurifier;
 use Zend\View\Helper\AbstractHelper;
 
-class Purifier
+class Purifier extends AbstractHelper
 {
-    protected $filter;
+    protected $purifier;
 
-    public function __construct(PurifierFilter $filter)
+    public function __construct(HTMLPurifier $purifier)
     {
-        $this->filter = $filter;
+        $this->purifier = $purifier;
     }
 
-    protected function getFilter()
+    protected function getPurifier()
     {
-        return $this->filter;
+        return $this->purifier;
     }
 
-    public function __invoke($html)
+    public function __invoke($html = null)
     {
+        if (null === $html) {
+            return $this;
+        }
+
         return $this->purify($html);
     }
 
     public function purify($html)
     {
-        return $this->getFilter()->filter($html);
+        return $this->getPurifier()->purify($html);
     }
 }
