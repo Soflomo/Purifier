@@ -17,11 +17,19 @@ class Purifier extends AbstractFilter implements FilterInterface
      */
     protected $allowedElements;
     
+    /**
+     * @param HTMLPurifier $purifier
+     */
     public function __construct(HTMLPurifier $purifier)
     {
         $this->purifier = $purifier;
     }
 
+    /**
+     * Returns the purifier with config allowed elements added if specified
+     * 
+     * @return HTMLPurifier
+     */
     protected function getPurifier()
     {
         if ($this->allowedElements !== null) {

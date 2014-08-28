@@ -45,7 +45,6 @@ return array(
         'standalone'      => false,
         'standalone_path' => 'vendor/ezyang/htmlpurifier/library/HTMLPurifier.standalone.php',
         'config'          => array(
-               'HTML.AllowedElements' => 'p, h1, h2, h3, h4, h5, h6, strong, i, b, ul, ol, li, dl, dd, dt, em, cite, small, a, span. blockquote'
         )
     ),
 );
