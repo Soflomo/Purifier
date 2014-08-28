@@ -24,7 +24,9 @@ class Purifier extends AbstractFilter implements FilterInterface
     {
         if ($this->allowedClasses !== null) {
             $config = $this->purifier->config;
-            exit(var_dump($config));
+            $config->set('AllowedElements', $this->allowedClasses);
+            
+            //$this->purifier->config = $config;
         }
         
         return $this->purifier;
