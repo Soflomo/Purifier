@@ -79,7 +79,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'htmlpurifier' => 'Soflomo\Purifier\FactoryPurifierFilterFactory'
+                'htmlpurifier' => 'Soflomo\Purifier\Factory\PurifierFilterFactory'
             ),
         );
     }
