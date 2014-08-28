@@ -68,6 +68,8 @@ class Purifier extends AbstractHelper
 
     public function purify($html)
     {
-        return $this->getPurifier()->purify($html);
+        
+            return $this->getPurifier()->purify($html);
+        
     }
 }
