@@ -11,9 +11,11 @@ class Purifier extends AbstractFilter implements FilterInterface
     protected $purifier;
 
     /**
-     * @var array
+     * Comma seperated values as string
+     * 
+     * @var string
      */
-    protected $allowedClasses;
+    protected $allowedElements;
     
     public function __construct(HTMLPurifier $purifier)
     {
@@ -22,9 +24,9 @@ class Purifier extends AbstractFilter implements FilterInterface
 
     protected function getPurifier()
     {
-        if ($this->allowedClasses !== null) {
+        if ($this->allowedElements !== null) {
             $config = \HTMLPurifier_Config::createDefault();
-            $config->set('HTML.AllowedElements', $this->allowedClasses);
+            $config->set('HTML.AllowedElements', $this->allowedElements);
             
             $this->purifier->config = $config;
         }
@@ -45,8 +47,8 @@ class Purifier extends AbstractFilter implements FilterInterface
      * 
      * @param array $allowedClasses
      */
-    public function setAllowedClasses($allowedClasses)
+    public function setAllowedElements($allowedElements)
     {
-        $this->allowedClasses = $allowedClasses;
+        $this->allowedElements = $allowedElements;
     }
 }
