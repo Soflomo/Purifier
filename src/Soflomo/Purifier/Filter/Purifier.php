@@ -23,10 +23,10 @@ class Purifier extends AbstractFilter implements FilterInterface
     protected function getPurifier()
     {
         if ($this->allowedClasses !== null) {
-            $config = $this->purifier->config;
+            $config = \HTMLPurifier_Config::createDefault();
             $config->set('HTML.AllowedElements', $this->allowedClasses);
             
-            //$this->purifier->config = $config;
+            $this->purifier->config = $config;
         }
         
         return $this->purifier;
