@@ -60,12 +60,14 @@ class HtmlPurifierFactory implements FactoryInterface
             include $config['soflomo_purifier']['standalone_path'];
         }
 
-        $config   = HTMLPurifier_Config::createDefault();
+        //$config   = HTMLPurifier_Config::createDefault();
         foreach ($options as $key => $value) {
             $config->set($key, $value);
         }
 
-        $purifier = new HTMLPurifier($config);
+        //$purifier = new HTMLPurifier($config);
+        $purifier = new HTMLPurifier();
+        
         return $purifier;
     }
 }
