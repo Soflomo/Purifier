@@ -1,15 +1,18 @@
 <?php
 namespace Soflomo\Purifier\Factory;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PurifierFilterFactory implements ServiceLocatorAwareInterface
+class PurifierFilterFactory implements FactoryInterface
 {
-    use \Zend\ServiceManager\ServiceLocatorAwareTrait;
+    public function __construct($options)
+    {
+        exit(var_dump($options));
+    }
     
-	public function __invoke($options)
+	public function createService(ServiceLocatorInterface $serviceLocator)
 	{
-	    exit(var_dump($options));
 	    $purifier = $serviceLocator->getServiceLocator()->get('HTMLPurifier');
 	    
 	    return new Filter\Purifier($purifier);
