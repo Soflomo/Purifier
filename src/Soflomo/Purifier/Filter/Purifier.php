@@ -32,13 +32,6 @@ class Purifier extends AbstractFilter implements FilterInterface
      */
     protected function getPurifier()
     {
-        if ($this->allowedElements !== null) {
-            $config = \HTMLPurifier_Config::createDefault();
-            $config->set('HTML.AllowedElements', $this->allowedElements);
-            
-            $this->purifier->config = $config;
-        }
-        
         return $this->purifier;
     }
     
@@ -47,7 +40,17 @@ class Purifier extends AbstractFilter implements FilterInterface
      */
     public function filter($value)
     {
-        return $this->getPurifier()->purify($value);
+        $purifier = $this->getPurifier();
+        
+        if ($this->allowedElements !== null) {
+            //$config = \HTMLPurifier_Config::createDefault();
+            $config = clone $purifier->config;
+            $config->set('HTML.AllowedElements', $this->allowedElements);
+        
+            return $purifier->purify($value, $config);
+        }
+        
+        return $purifier->purify($value);
     }
     
     /**
