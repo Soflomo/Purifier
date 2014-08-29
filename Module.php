@@ -79,10 +79,7 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'htmlpurifier' => function($sl) {
-                    $purifier = $sl->getServiceLocator()->get('HTMLPurifier');
-                    return new Filter\Purifier($purifier);
-                },
+                'htmlpurifier' => 'Soflomo\Purifier\Factory\PurifierFilterFactory'
             ),
         );
     }

@@ -45,18 +45,33 @@ use Zend\View\Helper\AbstractHelper;
 
 class Purifier extends AbstractHelper
 {
+    /**
+     * @var HTMLPurifier
+     */
     protected $purifier;
 
+    /**
+     * @param HTMLPurifier $purifier
+     */
     public function __construct(HTMLPurifier $purifier)
     {
         $this->purifier = $purifier;
     }
 
+    /**
+     * Getter for purifier
+     * 
+     * @return HTMLPurifier
+     */
     protected function getPurifier()
     {
         return $this->purifier;
     }
 
+    /**
+     * @param string $html
+     * @return \Soflomo\Purifier\View\Helper\Purifier|Ambigous <string, boolean>
+     */
     public function __invoke($html = null)
     {
         if (null === $html) {
@@ -66,6 +81,11 @@ class Purifier extends AbstractHelper
         return $this->purify($html);
     }
 
+    /**
+     * Purifies the html string
+     * 
+     * @param string $html
+     */
     public function purify($html)
     {
         return $this->getPurifier()->purify($html);

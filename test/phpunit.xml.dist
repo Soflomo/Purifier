@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Bootstrap.php">
+	<testsuites>
+		<testsuite name="Purifier">
+			<directory>./PurifierTest</directory>
+		</testsuite>
+	</testsuites>
+	
+	<filter>
+		<whitelist>
+			<directory>../src/Purifier</directory>
+		</whitelist>
+	</filter>
+</phpunit>

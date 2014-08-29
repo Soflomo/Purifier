@@ -65,7 +65,6 @@ class HtmlPurifierFactory implements FactoryInterface
             $config->set($key, $value);
         }
 
-        $purifier = new HTMLPurifier($config);
-        return $purifier;
+        return new HTMLPurifier($config);
     }
 }
