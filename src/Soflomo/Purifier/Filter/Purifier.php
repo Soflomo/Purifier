@@ -43,7 +43,6 @@ class Purifier extends AbstractFilter implements FilterInterface
         $purifier = $this->getPurifier();
         
         if ($this->allowedElements !== null) {
-            //$config = \HTMLPurifier_Config::createDefault();
             $config = clone $purifier->config;
             $config->set('HTML.AllowedElements', $this->allowedElements);
         
