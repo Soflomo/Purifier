@@ -112,7 +112,6 @@ class HtmlPurifierFactoryTest extends TestCase
                 'standalone' => false,
                 'config' => array(
                     'HTML.DefinitionID' => 'custom definitions',
-                    'HTML.DefinitionRev' => 2,
                     'Cache.SerializerPath' => $this->cacheDir
                 ),
                 'definitions' => array(
@@ -137,7 +136,6 @@ class HtmlPurifierFactoryTest extends TestCase
                 'standalone' => false,
                 'config' => array(
                     'HTML.DefinitionID' => 'custom definitions',
-                    'HTML.DefinitionRev' => 2,
                     'Cache.SerializerPath' => $this->cacheDir
                 ),
                 'definitions' => array(
