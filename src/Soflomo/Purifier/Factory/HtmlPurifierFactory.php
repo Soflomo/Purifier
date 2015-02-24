@@ -42,7 +42,6 @@ namespace Soflomo\Purifier\Factory;
 
 use HTMLPurifier;
 use HTMLPurifier_Config;
-
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -53,19 +52,24 @@ class HtmlPurifierFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sl)
     {
-        $config   = $sl->get('config');
-        $options  = $config['soflomo_purifier']['config'];
+        $configService = $sl->get('config');
+        $moduleConfig  = $configService['soflomo_purifier'];
+        $config        = $moduleConfig['config'];
 
-        if ($config['soflomo_purifier']['standalone']) {
-            include $config['soflomo_purifier']['standalone_path'];
+        if ($moduleConfig['standalone']) {
+            if (! file_exists($moduleConfig['standalone_path'])) {
+                throw new \RuntimeException('Could not find standalone purifier file');
+            }
+
+            include $moduleConfig['standalone_path'];
         }
 
-        $config   = HTMLPurifier_Config::createDefault();
-        foreach ($options as $key => $value) {
-            $config->set($key, $value);
+        $purifierConfig = HTMLPurifier_Config::createDefault();
+        foreach ($config as $key => $value) {
+            $purifierConfig->set($key, $value);
         }
 
-        $purifier = new HTMLPurifier($config);
+        $purifier = new HTMLPurifier($purifierConfig);
         return $purifier;
     }
 }
