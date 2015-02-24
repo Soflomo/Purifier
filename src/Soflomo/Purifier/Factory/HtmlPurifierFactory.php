@@ -40,8 +40,11 @@
 
 namespace Soflomo\Purifier\Factory;
 
+use DomainException;
 use HTMLPurifier;
 use HTMLPurifier_Config;
+use HTMLPurifier_Definition;
+use RuntimeException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -58,7 +61,7 @@ class HtmlPurifierFactory implements FactoryInterface
 
         if ($moduleConfig['standalone']) {
             if (! file_exists($moduleConfig['standalone_path'])) {
-                throw new \RuntimeException('Could not find standalone purifier file');
+                throw new RuntimeException('Could not find standalone purifier file');
             }
 
             include $moduleConfig['standalone_path'];
@@ -67,6 +70,18 @@ class HtmlPurifierFactory implements FactoryInterface
         $purifierConfig = HTMLPurifier_Config::createDefault();
         foreach ($config as $key => $value) {
             $purifierConfig->set($key, $value);
+        }
+
+        foreach ($moduleConfig['definitions'] as $type => $methods) {
+            $definition = $purifierConfig->getDefinition($type, true, true);
+
+            if (! $definition instanceof HTMLPurifier_Definition) {
+                throw new DomainException('Invalid definition type specified');
+            }
+
+            foreach ($methods as $method => $args) {
+                call_user_func_array(array($definition, $method), $args);
+            }
         }
 
         $purifier = new HTMLPurifier($purifierConfig);
