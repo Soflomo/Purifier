@@ -40,10 +40,8 @@
 
 namespace Soflomo\Purifier\Factory;
 
-use DomainException;
 use HTMLPurifier;
 use HTMLPurifier_Config;
-use HTMLPurifier_Definition;
 use RuntimeException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -56,8 +54,9 @@ class HtmlPurifierFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $sl)
     {
         $configService = $sl->get('config');
-        $moduleConfig  = $configService['soflomo_purifier'];
-        $config        = $moduleConfig['config'];
+        $moduleConfig  = isset($configService['soflomo_purifier']) ? $configService['soflomo_purifier'] : array();
+        $config        = isset($moduleConfig['config']) ? $moduleConfig['config'] : array();
+        $definitions   = isset($moduleConfig['definitions']) ? $moduleConfig['definitions'] : array();
 
         if ($moduleConfig['standalone']) {
             if (! file_exists($moduleConfig['standalone_path'])) {
@@ -68,15 +67,17 @@ class HtmlPurifierFactory implements FactoryInterface
         }
 
         $purifierConfig = HTMLPurifier_Config::createDefault();
+
         foreach ($config as $key => $value) {
             $purifierConfig->set($key, $value);
         }
 
-        foreach ($moduleConfig['definitions'] as $type => $methods) {
+        foreach ($definitions as $type => $methods) {
             $definition = $purifierConfig->getDefinition($type, true, true);
 
-            if (! $definition instanceof HTMLPurifier_Definition) {
-                throw new DomainException('Invalid definition type specified');
+            if (! $definition) {
+                // definition is cached, skip iteration
+                continue;
             }
 
             foreach ($methods as $method => $args) {
