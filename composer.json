@@ -35,6 +35,11 @@
             "./Module.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Soflomo\\Purifier\\Test\\": "test/"
+        }
+    },
     "bin": [
         "bin/purifier-generate-standalone"
     ]

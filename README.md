@@ -150,3 +150,27 @@ return array(
     ),
 );
 ```
+
+The module configuration also accepts a `definitions` array to add custom definitions to the filter, as [documented here](http://htmlpurifier.org/docs/enduser-customize.html).
+
+For example:
+
+```php
+return array(
+    'soflomo_purifier' => array(
+        'config' => array(
+            'HTML.DefinitionID' => 'my custom definitions',
+        ),
+        'definitions' => array(
+            'HTML' => array(
+                'addAttribute' => array(
+                    'a', 'target', 'Enum#_blank,_self,_target,_top'
+                ),
+            ),
+        ),
+    ),
+);
+```
+
+This will add a `HTMLPurifier_AttrDef_Enum` definition for the `ŧarget` attribute of the `a` element.
+Note that a `HTML.DefinitionID` config key is required to do so.

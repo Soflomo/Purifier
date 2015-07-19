@@ -44,7 +44,7 @@ return array(
     'soflomo_purifier' => array(
         'standalone'      => false,
         'standalone_path' => 'vendor/ezyang/htmlpurifier/library/HTMLPurifier.standalone.php',
-        'config'          => array(
-        )
+        'config'          => array(),
+        'definitions'     => array(),
     ),
 );

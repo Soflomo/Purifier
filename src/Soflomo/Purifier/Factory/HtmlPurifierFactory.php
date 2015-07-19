@@ -42,7 +42,7 @@ namespace Soflomo\Purifier\Factory;
 
 use HTMLPurifier;
 use HTMLPurifier_Config;
-
+use RuntimeException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -53,19 +53,39 @@ class HtmlPurifierFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $sl)
     {
-        $config   = $sl->get('config');
-        $options  = $config['soflomo_purifier']['config'];
+        $configService = $sl->get('config');
+        $moduleConfig  = isset($configService['soflomo_purifier']) ? $configService['soflomo_purifier'] : array();
+        $config        = isset($moduleConfig['config']) ? $moduleConfig['config'] : array();
+        $definitions   = isset($moduleConfig['definitions']) ? $moduleConfig['definitions'] : array();
 
-        if ($config['soflomo_purifier']['standalone']) {
-            include $config['soflomo_purifier']['standalone_path'];
+        if ($moduleConfig['standalone']) {
+            if (! file_exists($moduleConfig['standalone_path'])) {
+                throw new RuntimeException('Could not find standalone purifier file');
+            }
+
+            include $moduleConfig['standalone_path'];
         }
 
-        $config   = HTMLPurifier_Config::createDefault();
-        foreach ($options as $key => $value) {
-            $config->set($key, $value);
+        $purifierConfig = HTMLPurifier_Config::createDefault();
+
+        foreach ($config as $key => $value) {
+            $purifierConfig->set($key, $value);
         }
 
-        $purifier = new HTMLPurifier($config);
+        foreach ($definitions as $type => $methods) {
+            $definition = $purifierConfig->getDefinition($type, true, true);
+
+            if (! $definition) {
+                // definition is cached, skip iteration
+                continue;
+            }
+
+            foreach ($methods as $method => $args) {
+                call_user_func_array(array($definition, $method), $args);
+            }
+        }
+
+        $purifier = new HTMLPurifier($purifierConfig);
         return $purifier;
     }
 }
