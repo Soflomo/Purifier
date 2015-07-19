@@ -23,6 +23,10 @@
         "zendframework/zend-filter": "^2.5",
         "ezyang/htmlpurifier": ">=4.5.0"
     },
+    "suggest": {
+        "zendframework/zend-servicemanager": "For creating the filter with the SM factory",
+        "zendframework/zend-view": "For using the purifier as view helper"
+    },
     "autoload": {
         "psr-0": {
             "Soflomo\\Purifier": "src/"
